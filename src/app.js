@@ -26,4 +26,9 @@ function chooseLetter() {
   return Array.from(text)
 }
 
-console.log(chooseLetter())
+let dayLetters = chooseLetter()
+
+for (let i = 0; i <= dayLetters.length - 1; i++) {
+  document.getElementById(`display-dayLetter${i + 1}`).textContent =
+    dayLetters[i]
+}
