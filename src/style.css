@@ -1,0 +1,52 @@
+/* variables declared here - these are the colors for the page, as well as the font stacks and size */
+
+:root {
+  --cell: #83c5be;
+  --active: #006d77;
+  --text: #3d405b;
+  --white: #edf6f9;
+  --typeface: "Source Serif 4", sans-serif;
+  --font-size: 1rem;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: var(--typeface);
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0rem;
+  font-size: 4rem;
+  color: var(--text);
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+}
+
+.letter-hive {
+  display: grid;
+  grid-template-columns: repeat(6, 2fr);
+  grid-template-rows: repeat(3, 2fr);
+  grid-gap: 6px;
+}
+
+.cell {
+  grid-column-end: span 2;
+  font-size: 3rem;
+}
+.cell:nth-child(1) {
+  grid-column-start: 2;
+}
+
+.cell:nth-child(6) {
+  grid-column-start: 2;
+}
