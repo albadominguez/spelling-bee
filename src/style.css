@@ -23,7 +23,7 @@ body {
 h1 {
   display: flex;
   justify-content: center;
-  padding: 4rem 0rem;
+  padding: 1rem 0 0 0;
   font-size: 4rem;
   color: var(--text);
 }
@@ -33,11 +33,21 @@ h1 {
   justify-content: center;
 }
 
+.input-word {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  font-family: var(--typeface);
+  color: var(--text);
+  padding-bottom: 2.5rem;
+}
+
 .letter-hive {
   display: grid;
   grid-template-columns: repeat(6, 2fr);
   grid-template-rows: repeat(3, 2fr);
   grid-gap: 6px;
+  margin-bottom: 7rem;
 }
 
 .cell {
@@ -106,6 +116,11 @@ h1 {
   z-index: 2;
   background: inherit;
   transition: 0s;
+  text-transform: uppercase;
+}
+
+.cell:hover {
+  background-color: #264653;
 }
 
 .center-cell {
@@ -114,4 +129,36 @@ h1 {
 
 .center-cell span {
   color: var(--text);
+}
+
+.center-cell:hover {
+  background-color: #e07a5f;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding-bottom: 2.5rem;
+}
+
+.button {
+  font-family: var(--typeface);
+  font-size: 1.2rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  border: solid 2px var(--text);
+  background-color: white;
+}
+
+.button:hover {
+  background-color: var(--white);
+}
+
+.score-text p {
+  display: flex;
+  justify-content: center;
+  color: var(--text);
+  font-family: var(--typeface);
+  font-size: 1.2rem;
 }

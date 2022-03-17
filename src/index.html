@@ -15,15 +15,20 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Source+Serif+4:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/d3ff2aafeb.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Spelling bee</title>
   </head>
   <body>
     <h1>Spelling Bee</h1>
+    <div class="input-word">
+      <p>hola</p>
+    </div>
     <section class="main-content">
-      <p class="input-word"></p>
-
       <div class="letter-hive">
-        <div class="cell"><span>A</span></div>
+        <div class="cell"><span>a</span></div>
         <div class="cell"><span>B</span></div>
         <div class="cell"><span>C</span></div>
         <div class="cell center-cell"><span>D</span></div>
@@ -33,16 +38,21 @@
       </div>
     </section>
     <section class="buttons">
-      <button class="button"></button>
-      <button class="button"></button>
-      <button class="button"></button>
+      <button class="button">Delete</button>
+      <button class="button"><i class="fa-solid fa-arrows-rotate"></i></button>
+      <button class="button">Enter</button>
     </section>
+
     <section class="scorebord">
-      <p>
-        You have found
-        <span class="number-words">: <span class="words-list"></span></span>
-      </p>
-      <p>Punctuation: <span class="punctuation"></span></p>
+      <div class="score-text">
+        <p>
+          You have found
+          <span class="number-words"
+            >: <span class="words-list"> words.</span></span
+          >
+        </p>
+        <p>Punctuation: <span class="punctuation"></span></p>
+      </div>
     </section>
 
     <script src="app.js"></script>
