@@ -72,28 +72,36 @@ function clearSelectedLetters() {
 }
 
 function checkResult() {
+  const sameWord = "You already enter this word"
+  const wrongMessage = "the word is wrong"
   let found = false
+
+  setErrorMessage("")
 
   possibleAnswers.find((answer) => {
     if (foundAnswers.find((element) => element === answer)) {
+      setErrorMessage(sameWord)
+      found = true
       return
     }
+
     if (answer.toLocaleLowerCase() === selectedLetters.toLocaleLowerCase()) {
       foundAnswers.push(answer)
       document.getElementById("words-list").textContent =
         foundAnswers.join(", ")
       found = true
-      document.getElementById(`wrong-word`).textContent = ""
       return
     }
   })
 
-  if (!found) {
-    let wrongMessage = "the word is wrong"
-    document.getElementById(`wrong-word`).textContent = wrongMessage
-  }
+  if (!found) setErrorMessage(wrongMessage)
+
   clearSelectedLetters()
   countWords(foundAnswers, possibleAnswers)
+}
+
+function setErrorMessage(message) {
+  document.getElementById(`wrong-word`).textContent = message
 }
 
 function countWords(actualWords, totalWords) {
