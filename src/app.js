@@ -72,6 +72,8 @@ function clearSelectedLetters() {
 }
 
 function checkResult() {
+  let found = false
+
   possibleAnswers.find((answer) => {
     if (foundAnswers.find((element) => element === answer)) {
       return
@@ -80,9 +82,16 @@ function checkResult() {
       foundAnswers.push(answer)
       document.getElementById("words-list").textContent =
         foundAnswers.join(", ")
+      found = true
+      document.getElementById(`wrong-word`).textContent = ""
+      return
     }
   })
 
+  if (!found) {
+    let wrongMessage = "the word is wrong"
+    document.getElementById(`wrong-word`).textContent = wrongMessage
+  }
   clearSelectedLetters()
   countWords(foundAnswers, possibleAnswers)
 }
@@ -91,5 +100,3 @@ function countWords(actualWords, totalWords) {
   let numberWords = `You have found: ${actualWords.length} / ${totalWords.length} words`
   document.getElementById(`number-words`).textContent = numberWords
 }
-
-// paraula incorrecte
