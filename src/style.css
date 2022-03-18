@@ -33,7 +33,7 @@ h1 {
   justify-content: center;
 }
 
-.input-word {
+#input-word {
   display: flex;
   justify-content: center;
   font-size: 2rem;
@@ -42,6 +42,9 @@ h1 {
   padding-bottom: 2.5rem;
 }
 
+.input-div {
+  height: 2rem;
+}
 .letter-hive {
   display: grid;
   grid-template-columns: repeat(6, 2fr);

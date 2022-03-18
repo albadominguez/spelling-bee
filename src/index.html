@@ -23,25 +23,27 @@
   </head>
   <body>
     <h1>Spelling Bee</h1>
-    <div class="input-word">
-      <p>hola</p>
+    <div class="input-div" id="input-word">
+      <p class="blank-space"></p>
     </div>
     <section class="main-content">
       <div class="letter-hive">
-        <div class="cell"><span id="display-dayLetter1"></span></div>
-        <div class="cell"><span id="display-dayLetter2">B</span></div>
-        <div class="cell"><span id="display-dayLetter3">C</span></div>
+        <div class="cell"><span id="display-dayLetter2"></span></div>
+        <div class="cell"><span id="display-dayLetter3"></span></div>
+        <div class="cell"><span id="display-dayLetter4"></span></div>
         <div class="cell center-cell">
-          <span id="display-dayLetter4">D</span>
+          <span id="display-dayLetter1">D</span>
         </div>
-        <div class="cell"><span id="display-dayLetter5">E</span></div>
-        <div class="cell"><span id="display-dayLetter6">F</span></div>
-        <div class="cell"><span id="display-dayLetter7">G</span></div>
+        <div class="cell"><span id="display-dayLetter5"></span></div>
+        <div class="cell"><span id="display-dayLetter6"></span></div>
+        <div class="cell"><span id="display-dayLetter7"></span></div>
       </div>
     </section>
     <section class="buttons">
-      <button class="button">Delete</button>
-      <button class="button"><i class="fa-solid fa-arrows-rotate"></i></button>
+      <button class="button" onclick="deleteLetter()">Delete</button>
+      <button class="button" onclick="checkAnswer()">
+        <i class="fa-solid fa-arrows-rotate"></i>
+      </button>
       <button class="button">Enter</button>
     </section>
 
