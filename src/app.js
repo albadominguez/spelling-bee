@@ -66,17 +66,30 @@ function deleteLetter() {
   document.getElementById(`input-word`).textContent = selectedLetters
 }
 
+function clearSelectedLetters() {
+  selectedLetters = ""
+  document.getElementById(`input-word`).textContent = selectedLetters
+}
+
 function checkResult() {
   possibleAnswers.find((answer) => {
+    if (foundAnswers.find((element) => element === answer)) {
+      return
+    }
     if (answer.toLocaleLowerCase() === selectedLetters.toLocaleLowerCase()) {
       foundAnswers.push(answer)
       document.getElementById("words-list").textContent =
         foundAnswers.join(", ")
     }
   })
-  selectedLetters = ""
-  document.getElementById(`input-word`).textContent = selectedLetters
+
+  clearSelectedLetters()
+  countWords(foundAnswers, possibleAnswers)
 }
 
-//paraula repetida
+function countWords(actualWords, totalWords) {
+  let numberWords = `You have found: ${actualWords.length} / ${totalWords.length} words`
+  document.getElementById(`number-words`).textContent = numberWords
+}
+
 // paraula incorrecte
