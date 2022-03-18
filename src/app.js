@@ -1,6 +1,16 @@
 let dayLetters = ["c", "p", "b", "y", "l", "i", "o"]
 let selectedLetters = ""
-let answers = ["policy", "cibol", "copy", "bloc", "clip", "boil", "oily", "oil"]
+let possibleAnswers = [
+  "policy",
+  "cibol",
+  "copy",
+  "bloc",
+  "clip",
+  "boil",
+  "oily",
+  "oil",
+]
+let foundAnswers = []
 
 function chooseLetter() {
   let text = ""
@@ -56,10 +66,17 @@ function deleteLetter() {
   document.getElementById(`input-word`).textContent = selectedLetters
 }
 
-function checkAnswer(word, arrayResults) {
-  //Passar la variable selectedLetters
-  //buscar el valor a l'string answers
-  // mostrar la paraula a words-list
-  // sumar al contador la paraula si es certa
-  // mostrar un missatge en vermell si no es correcte
+function checkResult() {
+  possibleAnswers.find((answer) => {
+    if (answer.toLocaleLowerCase() === selectedLetters.toLocaleLowerCase()) {
+      foundAnswers.push(answer)
+      document.getElementById("words-list").textContent =
+        foundAnswers.join(", ")
+    }
+  })
+  selectedLetters = ""
+  document.getElementById(`input-word`).textContent = selectedLetters
 }
+
+//paraula repetida
+// paraula incorrecte
