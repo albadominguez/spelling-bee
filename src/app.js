@@ -10,6 +10,7 @@ let possibleAnswers = [
   "oily",
   "oil",
 ]
+
 let foundAnswers = []
 
 function chooseLetter() {
@@ -18,9 +19,9 @@ function chooseLetter() {
   let vowels = Array.from("aeiou")
 
   for (let i = 0; i < 6; i++) {
-    let letterPositon = Math.floor(Math.random() * possible.length)
-    text += possible[letterPositon]
-    possible.splice(letterPositon, 1)
+    let letterPosition = Math.floor(Math.random() * possible.length)
+    text += possible[letterPosition]
+    possible.splice(letterPosition, 1)
   }
 
   if (
@@ -73,31 +74,45 @@ function clearSelectedLetters() {
 
 function checkResult() {
   const sameWord = "You already enter this word"
-  const wrongMessage = "the word is wrong"
-  let found = false
-
+  const wrongMessage = "The word is wrong"
+  const missingCentralLetter = "The word is missing the central letter"
   setErrorMessage("")
 
-  possibleAnswers.find((answer) => {
-    if (foundAnswers.find((element) => element === answer)) {
-      setErrorMessage(sameWord)
-      found = true
-      return
-    }
+  if (selectedLetters === "") {
+    return
+  }
 
-    if (answer.toLocaleLowerCase() === selectedLetters.toLocaleLowerCase()) {
-      foundAnswers.push(answer)
-      document.getElementById("words-list").textContent =
-        foundAnswers.join(", ")
-      found = true
-      return
-    }
-  })
+  if (!selectedLetters.toLocaleLowerCase().includes(dayLetters[0])) {
+    setErrorMessage(missingCentralLetter)
+    clearSelectedLetters()
+    return
+  }
 
-  if (!found) setErrorMessage(wrongMessage)
+  const checkingAnswer = possibleAnswers.find(
+    (answer) =>
+      answer.toLocaleLowerCase() === selectedLetters.toLocaleLowerCase()
+  )
 
+  if (checkingAnswer === undefined) {
+    setErrorMessage(wrongMessage)
+    clearSelectedLetters()
+    return
+  }
+
+  if (foundAnswers.find((element) => element === checkingAnswer)) {
+    setErrorMessage(sameWord)
+    clearSelectedLetters()
+    return
+  }
+
+  addFoundAnswer(checkingAnswer)
   clearSelectedLetters()
   countWords(foundAnswers, possibleAnswers)
+}
+
+function addFoundAnswer(answer) {
+  foundAnswers.push(answer)
+  document.getElementById("words-list").textContent = foundAnswers.join(", ")
 }
 
 function setErrorMessage(message) {
