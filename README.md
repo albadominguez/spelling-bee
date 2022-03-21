@@ -1,2 +1,2 @@
-# spelling-bee
+# Spelling Bee
  
