@@ -2,16 +2,31 @@ let dayLetters = ["c", "p", "b", "y", "l", "i", "o"]
 let selectedLetters = ""
 let possibleAnswers = [
   "policy",
+  "piccy",
+  "bocci",
+  "cyclo",
   "cibol",
+  "colic",
   "copy",
+  "pyic",
   "bloc",
   "clip",
-  "boil",
-  "oily",
-  "oil",
+  "clop",
+  "cloy",
+  "coly",
+  "coil",
+  "coli",
+  "loci",
+  "cop",
+  "cob",
+  "pic",
+  "coy",
+  "icy",
+  "col",
 ]
 
 let foundAnswers = []
+let totalScore = punctuationWords(possibleAnswers)
 
 function chooseLetter() {
   let text = ""
@@ -108,6 +123,8 @@ function checkResult() {
   addFoundAnswer(checkingAnswer)
   clearSelectedLetters()
   countWords(foundAnswers, possibleAnswers)
+  let score = punctuationWords(foundAnswers)
+  countPunctuation(score, totalScore)
 }
 
 function addFoundAnswer(answer) {
@@ -122,4 +139,30 @@ function setErrorMessage(message) {
 function countWords(actualWords, totalWords) {
   let numberWords = `You have found: ${actualWords.length} / ${totalWords.length} words`
   document.getElementById(`number-words`).textContent = numberWords
+}
+
+function punctuationWords(wordsToScore) {
+  let score = 0
+  wordsToScore.forEach((element) => (score += element.length))
+  return score
+}
+
+function countPunctuation(current, total) {
+  let punctuation = `Punctuation: ${current} / ${total}`
+  document.getElementById(`punctuation`).textContent = punctuation
+}
+
+function shuffleArray() {
+  let array = dayLetters
+  let arrayFirst = array[0]
+  array.shift()
+
+  const shuffledArray = array.sort((a, b) => 0.5 - Math.random())
+
+  dayLetters = [arrayFirst, ...shuffledArray]
+
+  for (let i = 0; i <= dayLetters.length - 1; i++) {
+    document.getElementById(`display-dayLetter${i + 1}`).textContent =
+      dayLetters[i]
+  }
 }
