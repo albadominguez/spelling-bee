@@ -77,6 +77,8 @@ function getLetter() {
 
 getLetter()
 
+document.getElementById("delete-button").addEventListener("click", deleteLetter)
+
 function deleteLetter() {
   selectedLetters = selectedLetters.substring(0, selectedLetters.length - 1)
   document.getElementById(`input-word`).textContent = selectedLetters
@@ -151,6 +153,10 @@ function countPunctuation(current, total) {
   let punctuation = `Punctuation: ${current} / ${total}`
   document.getElementById(`punctuation`).textContent = punctuation
 }
+
+document
+  .getElementById("shuffle-button")
+  .addEventListener("click", shuffleArray)
 
 function shuffleArray() {
   let array = dayLetters
