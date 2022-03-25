@@ -36,33 +36,6 @@ let possibleAnswers = [
 let foundAnswers = []
 let totalScore = punctuationWords(possibleAnswers)
 
-function chooseLetter() {
-  let text = ""
-  let possible = Array.from("abcdefghijklmnopqrstuvwxyz")
-  let vowels = Array.from("aeiou")
-
-  for (let i = 0; i < 6; i++) {
-    let letterPosition = Math.floor(Math.random() * possible.length)
-    text += possible[letterPosition]
-    possible.splice(letterPosition, 1)
-  }
-
-  if (
-    text.includes("a") ||
-    text.includes("e") ||
-    text.includes("i") ||
-    text.includes("o") ||
-    text.includes("u")
-  ) {
-    let letterPositon = Math.floor(Math.random() * possible.length)
-    text += possible[letterPositon]
-  } else {
-    text += vowels[Math.floor(Math.random() * vowels.length)]
-  }
-
-  return Array.from(text)
-}
-
 // let dayLetters = chooseLetter()
 
 for (let i = 0; i <= dayLetters.length - 1; i++) {
@@ -97,27 +70,28 @@ function clearSelectedLetters() {
   document.getElementById(`input-word`).textContent = selectedLetters
 }
 
-document.getElementById("check-button").addEventListener("click", checkResult)
+document
+  .getElementById("check-button")
+  .addEventListener("click", () => checkResult(selectedLetters))
 
-function checkResult() {
+function checkResult(letters) {
   const sameWord = "You already enter this word"
   const wrongMessage = "The word is wrong"
   const missingCentralLetter = "The word is missing the central letter"
   setErrorMessage("")
 
-  if (selectedLetters === "") {
+  if (letters === "") {
     return
   }
 
-  if (!selectedLetters.toLocaleLowerCase().includes(dayLetters[0])) {
+  if (!letters.toLocaleLowerCase().includes(dayLetters[0])) {
     setErrorMessage(missingCentralLetter)
     clearSelectedLetters()
     return
   }
 
   const checkingAnswer = possibleAnswers.find(
-    (answer) =>
-      answer.toLocaleLowerCase() === selectedLetters.toLocaleLowerCase()
+    (answer) => answer.toLocaleLowerCase() === letters.toLocaleLowerCase()
   )
 
   if (checkingAnswer === undefined) {
