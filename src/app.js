@@ -89,6 +89,8 @@ function clearSelectedLetters() {
   document.getElementById(`input-word`).textContent = selectedLetters
 }
 
+document.getElementById("check-button").addEventListener("click", checkResult)
+
 function checkResult() {
   const sameWord = "You already enter this word"
   const wrongMessage = "The word is wrong"
