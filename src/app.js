@@ -1,59 +1,25 @@
-let dayLetters = ["c", "p", "b", "y", "l", "i", "o"]
+import { checkResult } from "./score.js"
+import { initialDayLetters, possibleAnswers } from "./letters.js"
+
+let dayLetters = initialDayLetters
 let selectedLetters = ""
-let possibleAnswers = [
-  "policy",
-  "piccy",
-  "bocci",
-  "cyclo",
-  "cibol",
-  "colic",
-  "copy",
-  "pyic",
-  "bloc",
-  "clip",
-  "clop",
-  "cloy",
-  "coly",
-  "coil",
-  "coli",
-  "loci",
-  "cop",
-  "cob",
-  "pic",
-  "coy",
-  "icy",
-  "col",
-]
-
 let foundAnswers = []
-let totalScore = punctuationWords(possibleAnswers)
 
-function chooseLetter() {
-  let text = ""
-  let possible = Array.from("abcdefghijklmnopqrstuvwxyz")
-  let vowels = Array.from("aeiou")
+document.getElementById("delete-button").addEventListener("click", deleteLetter)
+document.getElementById("check-button").addEventListener("click", () => {
+  checkResult(selectedLetters, dayLetters, possibleAnswers, foundAnswers)
+  clearSelectedLetters(selectedLetters)
+})
 
-  for (let i = 0; i < 6; i++) {
-    let letterPosition = Math.floor(Math.random() * possible.length)
-    text += possible[letterPosition]
-    possible.splice(letterPosition, 1)
-  }
+document.querySelectorAll(".cell").forEach((cell) => {
+  cell.addEventListener("click", function (event) {
+    handleLetter(event.target.innerText)
+  })
+})
 
-  if (
-    text.includes("a") ||
-    text.includes("e") ||
-    text.includes("i") ||
-    text.includes("o") ||
-    text.includes("u")
-  ) {
-    let letterPositon = Math.floor(Math.random() * possible.length)
-    text += possible[letterPositon]
-  } else {
-    text += vowels[Math.floor(Math.random() * vowels.length)]
-  }
-
-  return Array.from(text)
-}
+document
+  .getElementById("shuffle-button")
+  .addEventListener("click", shuffleArray)
 
 // let dayLetters = chooseLetter()
 
@@ -67,98 +33,14 @@ function handleLetter(letter) {
   document.getElementById(`input-word`).textContent = selectedLetters
 }
 
-function getLetter() {
-  document.querySelectorAll(".cell").forEach((cell) => {
-    cell.addEventListener("click", function (event) {
-      handleLetter(event.target.innerText)
-    })
-  })
-}
-
-getLetter()
-
-document.getElementById("delete-button").addEventListener("click", deleteLetter)
-
 function deleteLetter() {
   selectedLetters = selectedLetters.substring(0, selectedLetters.length - 1)
   document.getElementById(`input-word`).textContent = selectedLetters
 }
-
 function clearSelectedLetters() {
   selectedLetters = ""
   document.getElementById(`input-word`).textContent = selectedLetters
 }
-
-document.getElementById("check-button").addEventListener("click", checkResult)
-
-function checkResult() {
-  const sameWord = "You already enter this word"
-  const wrongMessage = "The word is wrong"
-  const missingCentralLetter = "The word is missing the central letter"
-  setErrorMessage("")
-
-  if (selectedLetters === "") {
-    return
-  }
-
-  if (!selectedLetters.toLocaleLowerCase().includes(dayLetters[0])) {
-    setErrorMessage(missingCentralLetter)
-    clearSelectedLetters()
-    return
-  }
-
-  const checkingAnswer = possibleAnswers.find(
-    (answer) =>
-      answer.toLocaleLowerCase() === selectedLetters.toLocaleLowerCase()
-  )
-
-  if (checkingAnswer === undefined) {
-    setErrorMessage(wrongMessage)
-    clearSelectedLetters()
-    return
-  }
-
-  if (foundAnswers.find((element) => element === checkingAnswer)) {
-    setErrorMessage(sameWord)
-    clearSelectedLetters()
-    return
-  }
-
-  addFoundAnswer(checkingAnswer)
-  clearSelectedLetters()
-  countWords(foundAnswers, possibleAnswers)
-  let score = punctuationWords(foundAnswers)
-  countPunctuation(score, totalScore)
-}
-
-function addFoundAnswer(answer) {
-  foundAnswers.push(answer)
-  document.getElementById("words-list").textContent = foundAnswers.join(", ")
-}
-
-function setErrorMessage(message) {
-  document.getElementById(`wrong-word`).textContent = message
-}
-
-function countWords(actualWords, totalWords) {
-  let numberWords = `You have found: ${actualWords.length} / ${totalWords.length} words`
-  document.getElementById(`number-words`).textContent = numberWords
-}
-
-function punctuationWords(wordsToScore) {
-  let score = 0
-  wordsToScore.forEach((element) => (score += element.length))
-  return score
-}
-
-function countPunctuation(current, total) {
-  let punctuation = `Punctuation: ${current} / ${total}`
-  document.getElementById(`punctuation`).textContent = punctuation
-}
-
-document
-  .getElementById("shuffle-button")
-  .addEventListener("click", shuffleArray)
 
 function shuffleArray() {
   let array = dayLetters
