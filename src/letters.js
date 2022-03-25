@@ -1,3 +1,30 @@
+let initialDayLetters = ["c", "p", "b", "y", "l", "i", "o"]
+
+const possibleAnswers = [
+  "policy",
+  "piccy",
+  "bocci",
+  "cyclo",
+  "cibol",
+  "colic",
+  "copy",
+  "pyic",
+  "bloc",
+  "clip",
+  "clop",
+  "cloy",
+  "coly",
+  "coil",
+  "coli",
+  "loci",
+  "cop",
+  "cob",
+  "pic",
+  "coy",
+  "icy",
+  "col",
+]
+
 function chooseLetter() {
   let text = ""
   let possible = Array.from("abcdefghijklmnopqrstuvwxyz")
@@ -24,3 +51,5 @@ function chooseLetter() {
 
   return Array.from(text)
 }
+
+export { initialDayLetters, possibleAnswers }

@@ -1,40 +1,25 @@
-import {
-  addFoundAnswer,
-  setErrorMessage,
-  countWords,
-  punctuationWords,
-  countPunctuation,
-} from "./score.js"
+import { checkResult } from "./score.js"
+import { initialDayLetters, possibleAnswers } from "./letters.js"
 
-let dayLetters = ["c", "p", "b", "y", "l", "i", "o"]
+let dayLetters = initialDayLetters
 let selectedLetters = ""
-let possibleAnswers = [
-  "policy",
-  "piccy",
-  "bocci",
-  "cyclo",
-  "cibol",
-  "colic",
-  "copy",
-  "pyic",
-  "bloc",
-  "clip",
-  "clop",
-  "cloy",
-  "coly",
-  "coil",
-  "coli",
-  "loci",
-  "cop",
-  "cob",
-  "pic",
-  "coy",
-  "icy",
-  "col",
-]
-
 let foundAnswers = []
-let totalScore = punctuationWords(possibleAnswers)
+
+document.getElementById("delete-button").addEventListener("click", deleteLetter)
+document.getElementById("check-button").addEventListener("click", () => {
+  checkResult(selectedLetters, dayLetters, possibleAnswers, foundAnswers)
+  clearSelectedLetters(selectedLetters)
+})
+
+document.querySelectorAll(".cell").forEach((cell) => {
+  cell.addEventListener("click", function (event) {
+    handleLetter(event.target.innerText)
+  })
+})
+
+document
+  .getElementById("shuffle-button")
+  .addEventListener("click", shuffleArray)
 
 // let dayLetters = chooseLetter()
 
@@ -48,74 +33,14 @@ function handleLetter(letter) {
   document.getElementById(`input-word`).textContent = selectedLetters
 }
 
-function getLetter() {
-  document.querySelectorAll(".cell").forEach((cell) => {
-    cell.addEventListener("click", function (event) {
-      handleLetter(event.target.innerText)
-    })
-  })
-}
-
-getLetter()
-
-document.getElementById("delete-button").addEventListener("click", deleteLetter)
-
 function deleteLetter() {
   selectedLetters = selectedLetters.substring(0, selectedLetters.length - 1)
   document.getElementById(`input-word`).textContent = selectedLetters
 }
-
 function clearSelectedLetters() {
   selectedLetters = ""
   document.getElementById(`input-word`).textContent = selectedLetters
 }
-
-document
-  .getElementById("check-button")
-  .addEventListener("click", () => checkResult(selectedLetters))
-
-function checkResult(letters) {
-  const sameWord = "You already enter this word"
-  const wrongMessage = "The word is wrong"
-  const missingCentralLetter = "The word is missing the central letter"
-  setErrorMessage("")
-
-  if (letters === "") {
-    return
-  }
-
-  if (!letters.toLocaleLowerCase().includes(dayLetters[0])) {
-    setErrorMessage(missingCentralLetter)
-    clearSelectedLetters()
-    return
-  }
-
-  const checkingAnswer = possibleAnswers.find(
-    (answer) => answer.toLocaleLowerCase() === letters.toLocaleLowerCase()
-  )
-
-  if (checkingAnswer === undefined) {
-    setErrorMessage(wrongMessage)
-    clearSelectedLetters()
-    return
-  }
-
-  if (foundAnswers.find((element) => element === checkingAnswer)) {
-    setErrorMessage(sameWord)
-    clearSelectedLetters()
-    return
-  }
-
-  addFoundAnswer(checkingAnswer, foundAnswers)
-  clearSelectedLetters()
-  countWords(foundAnswers, possibleAnswers)
-  let score = punctuationWords(foundAnswers)
-  countPunctuation(score, totalScore)
-}
-
-document
-  .getElementById("shuffle-button")
-  .addEventListener("click", shuffleArray)
 
 function shuffleArray() {
   let array = dayLetters

@@ -1,3 +1,42 @@
+import { possibleAnswers } from "./letters.js"
+
+let totalScore = punctuationWords(possibleAnswers)
+
+function checkResult(letters, dayLetter, possibleAnswer, foundAnswer) {
+  const sameWord = "You already enter this word"
+  const wrongMessage = "The word is wrong"
+  const missingCentralLetter = "The word is missing the central letter"
+  setErrorMessage("")
+
+  if (letters === "") {
+    return
+  }
+
+  if (!letters.toLocaleLowerCase().includes(dayLetter[0])) {
+    setErrorMessage(missingCentralLetter)
+    return
+  }
+
+  const checkingAnswer = possibleAnswer.find(
+    (answer) => answer.toLocaleLowerCase() === letters.toLocaleLowerCase()
+  )
+
+  if (checkingAnswer === undefined) {
+    setErrorMessage(wrongMessage)
+    return
+  }
+
+  if (foundAnswer.find((element) => element === checkingAnswer)) {
+    setErrorMessage(sameWord)
+    return
+  }
+
+  addFoundAnswer(checkingAnswer, foundAnswer)
+  countWords(foundAnswer, possibleAnswer)
+  let score = punctuationWords(foundAnswer)
+  countPunctuation(score, totalScore)
+}
+
 function addFoundAnswer(answer, foundAnswers) {
   foundAnswers.push(answer)
   document.getElementById("words-list").textContent = foundAnswers.join(", ")
@@ -23,10 +62,4 @@ function countPunctuation(current, total) {
   document.getElementById(`punctuation`).textContent = punctuation
 }
 
-export {
-  addFoundAnswer,
-  setErrorMessage,
-  countWords,
-  punctuationWords,
-  countPunctuation,
-}
+export { checkResult, punctuationWords }
